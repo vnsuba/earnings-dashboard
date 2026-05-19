@@ -2781,6 +2781,23 @@ function filtered() {
     if (av > bv) return  1 * sortDir;
     return 0;
   });
+
+  // ── Reattach leveraged-ETF rows directly below their parent stock ──
+  // Works in EVERY sort mode: after the sort, each ETF (etfOf set) is pulled
+  // out and re-inserted immediately after its parent ticker row. ETFs whose
+  // parent is filtered out keep their sorted position.
+  const etfChildren = {};
+  rows.forEach(r => { if (r.etfOf) (etfChildren[r.etfOf] = etfChildren[r.etfOf] || []).push(r); });
+  if (Object.keys(etfChildren).length) {
+    const present = new Set(rows.map(r => r.ticker));
+    const ordered = [];
+    rows.forEach(r => {
+      if (r.etfOf && present.has(r.etfOf)) return; // placed under its parent below
+      ordered.push(r);
+      if (etfChildren[r.ticker]) ordered.push(...etfChildren[r.ticker]);
+    });
+    return ordered;
+  }
   return rows;
 }
 
