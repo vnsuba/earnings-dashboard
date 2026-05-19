@@ -4213,7 +4213,7 @@ window.addEventListener('resize', sizeTable);
 
 // ─── SEED TAGS (one-time, never overwrites manual edits) ─────────
 (function seedTags() {
-  const FLAG = 'earnings_tags_seeded_v4';
+  const FLAG = 'earnings_tags_seeded_v5';
   if (localStorage.getItem(FLAG)) return;       // already seeded — skip
   const applyTag = (tag, tickers) => tickers.forEach(t => {
     const tags = getTags(t); if (!tags.includes(tag)) { tags.push(tag); setTags(t, tags); }
@@ -4221,9 +4221,9 @@ window.addEventListener('resize', sizeTable);
   applyTag('CRITICAL',       ['AEHR','POET','ALAB','CAMT','POWL','MOD','ON','MTSI','STRL','PENG','CRUS']);
   applyTag('OpenAI-GenAI',   ['SMCI','AAON','NTAP','HPE','ANET','ETN','DLR','TT','HUBB','CSCO']);
   applyTag('OpenAI-Others',  ['VKTX','LEU','RKLB','RUN','OSCR','ROKU','CELH','ZIM','OPEN','NFE']);
-  // v4 — manual list 2026-05-18
-  applyTag('CRITICAL',       ['CRNC','INOD','AEHR','PENG','VLN','PRSO']);
-  applyTag('GenAI',          ['CRNC','INOD','AEHR','PENG','VLN','PRSO']);
+  // v4/v5 — manual list 2026-05-18 (MRAM = Everspin, user referred to it as "EMRY")
+  applyTag('CRITICAL',       ['CRNC','INOD','AEHR','PENG','VLN','PRSO','MRAM']);
+  applyTag('GenAI',          ['CRNC','INOD','AEHR','PENG','VLN','PRSO','MRAM']);
   localStorage.setItem(FLAG, '1');
   renderTagFilters();
   render();
